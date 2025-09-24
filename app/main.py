@@ -1,29 +1,18 @@
-# # app/main.py
-# from fastapi import FastAPI, HTTPException, Query
-# from app.services.extractor import extract_text_from_url
-
-# app = FastAPI(title="Text Worker Service")
-
-# @app.get("/health")
-# async def health():
-#     return {"status": "ok"}
-
-# @app.post("/extract-text")
-# async def extract_text(url: str = Query(..., description="URL to extract text from")):
-#     try:
-#         text = await extract_text_from_url(url)
-#         return {"url": url, "extracted_text": text}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
-
 
 # main.py
+from fastapi import File
+from app.routers import jd_image
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 # from app.extractor import extract_text_from_url
 from app.services.extractor import extract_text_from_url
 
+
 app = FastAPI(title="Job Description Extractor")
+app.include_router(jd_image.router, prefix="/extract", tags=["JD Image"])
+
+
+
 
 class UrlRequest(BaseModel):
     url: str
@@ -37,3 +26,5 @@ async def extract_text(request: UrlRequest):
         return {"job_description": text}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+
