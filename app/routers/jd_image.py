@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 router = APIRouter()
 
 # Use a thread pool for parallel OCR (faster if multiple images uploaded)
-executor = ThreadPoolExecutor(max_workers=4)
+executor = ThreadPoolExecutor(max_workers=1)
 
 
 @router.post("/jd-image")
