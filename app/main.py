@@ -31,6 +31,7 @@ def root():
     return {"message": "Welcome to HireJourney API 🚀"}
 
 @app.get("/health")
+@app.head("/health")
 async def health():
     return {"status": "ok"}
 
