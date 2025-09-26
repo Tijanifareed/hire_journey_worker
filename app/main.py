@@ -14,7 +14,7 @@ app.include_router(jd_image.router, prefix="/extract", tags=["JD Image"])
 
 origins = [
     "http://127.0.0.1:8002",
-    "https://hirejourney-text-worker.onrender.com",
+    "https://hire-journey.onrender.com",
     
 ]
 
@@ -29,6 +29,10 @@ app.add_middleware(
 @app.get("/")
 def root():
     return {"message": "Welcome to HireJourney API 🚀"}
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
 
 
 
